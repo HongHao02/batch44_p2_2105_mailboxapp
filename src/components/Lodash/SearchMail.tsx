@@ -15,8 +15,7 @@ import Search from "../Search/Search";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { Email } from "@/types/EmailType";
-import { EmailItem } from "./Lodash";
-
+import { EmailItem } from "./EmailDasboard";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -95,7 +94,7 @@ export default function SearchMail() {
             ))
           ) : (
             <ListItemButton sx={{ display: "flex", justifyContent: "center" }}>
-              <div>{s_state || 'No email match this search value'}</div>
+              <div>{s_state || "No email match this search value"}</div>
             </ListItemButton>
           )}
         </List>
