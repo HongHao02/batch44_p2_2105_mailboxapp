@@ -1,17 +1,5 @@
 import { Email } from "@/types/EmailType";
-import moment from "moment";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/store";
-import {
-  addActiveEmail,
-  addEmails,
-} from "@/features/emailStore/emailStoreSlice";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import routes from "@/config/routes";
-
-const fakeEmails: Email[] = [
+export const fakeEmails: Email[] = [
   {
     id: 1,
     from: {
@@ -113,63 +101,3 @@ const fakeEmails: Email[] = [
     time: "24/12/2019 10:15:00",
   },
 ];
-
-interface EmailItemProps {
-  email: Email;
-}
-export function EmailItem({ email }: EmailItemProps) {
-  const { activeMail } = useSelector((state: RootState) => state.emailStore);
-  const dispatch: AppDispatch = useDispatch();
-  return (
-    <Link to={`${routes.mailContent}/:${email.id}`}>
-      <div
-        className={`w-full flex p-2 gap-1  text-[12px] cursor-pointer hover:border-gray-600 hover:border-[1px] ${
-          (activeMail?.id ?? 0) == email.id ? "bg-white" : ""
-        }`}
-        onClick={() => dispatch(addActiveEmail(email))}
-      >
-        <FiberManualRecordIcon
-          color="disabled"
-          fontSize="small"
-        ></FiberManualRecordIcon>
-        <div className="flex-1">
-          <div className="flex">
-            <p>{email.from.name}</p>
-            <p className="flex justify-end ml-auto">
-              {moment(email.time, "DD/MM/YYYY hh:mm:ss", true).format("LL")}
-            </p>
-          </div>
-          <div>{email.subject}</div>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function EmailDasboard() {
-  const { activeMail, emails } = useSelector(
-    (state: RootState) => state.emailStore
-  );
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(addEmails(fakeEmails));
-  }, []);
-  return (
-    <div className="flex gap-2">
-      <div className="w-1/6 border-r-[1px] border-r-slate-200 p-2 rounded-sm">
-        NavBar
-      </div>
-      <div className="w-2/6 border-x-[1px] border-r-slate-200 p-2">
-        {emails.map((email: Email, index: number) => (
-          <EmailItem key={index} email={email}></EmailItem>
-        ))}
-      </div>
-      <div className="w-3/6 border-x-[1px] border-r-slate-200 p-2">
-        {activeMail?.content}
-      </div>
-    </div>
-  );
-}
-
-export default EmailDasboard;

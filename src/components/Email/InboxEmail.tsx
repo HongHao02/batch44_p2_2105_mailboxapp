@@ -10,7 +10,6 @@ function InboxEmail() {
           <EmailItem key={index} email={email}></EmailItem>
         ))}
       </div>
-    
   );
 }
 
