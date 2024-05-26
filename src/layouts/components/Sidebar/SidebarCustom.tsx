@@ -53,12 +53,12 @@ const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
   {
     id: "1",
     label: "Favorites",
-    
+
     children: [
       {
         id: "1.1",
         label: "Inbox",
-        to: routes.mailBox ,
+        to: routes.mailBox,
         fileType: "folder",
       },
       { id: "1.2", label: "Sent Items", fileType: "folder", to: "/unknow" },
@@ -132,12 +132,12 @@ const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
   },
   [`&.Mui-expanded `]: {
     "&:not(.Mui-focused, .Mui-selected, .Mui-selected.Mui-focused) .labelIcon":
-      {
-        color:
-          theme.palette.mode === "light"
-            ? theme.palette.primary.main
-            : theme.palette.primary.dark,
-      },
+    {
+      color:
+        theme.palette.mode === "light"
+          ? theme.palette.primary.main
+          : theme.palette.primary.dark,
+    },
     "&::before": {
       content: '""',
       display: "block",
@@ -176,7 +176,7 @@ function TransitionComponent(props: TransitionProps) {
     },
   });
 
-  return <AnimatedCollapse sx={{paddingLeft:'30px'}} style={style} {...props} />;
+  return <AnimatedCollapse sx={{ paddingLeft: '30px' }} style={style} {...props} />;
 }
 
 const StyledTreeItemLabelText = styled(Typography)({
@@ -252,7 +252,7 @@ const getIconFromFileType = (fileType: FileType) => {
 
 interface CustomTreeItemProps
   extends Omit<UseTreeItem2Parameters, "rootRef">,
-    Omit<React.HTMLAttributes<HTMLLIElement>, "onFocus"> {}
+  Omit<React.HTMLAttributes<HTMLLIElement>, "onFocus"> { }
 
 const CustomTreeItem = React.forwardRef(function CustomTreeItem(
   props: CustomTreeItemProps,
@@ -281,8 +281,35 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
   }
 
   return (
-    <Link to={item.to}>
-      <TreeItem2Provider itemId={itemId}>
+    <>
+      {item.to ? <Link to={item.to}>
+        <TreeItem2Provider itemId={itemId}>
+          <StyledTreeItemRoot {...getRootProps(other)}>
+            <CustomTreeItemContent
+              {...getContentProps({
+                className: clsx("content", {
+                  "Mui-expanded": status.expanded,
+                  "Mui-selected": status.selected,
+                  "Mui-focused": status.focused,
+                  "Mui-disabled": status.disabled,
+                }),
+              })}
+            >
+              <TreeItem2IconContainer {...getIconContainerProps()}>
+                <TreeItem2Icon status={status} />
+              </TreeItem2IconContainer>
+              <TreeItem2Checkbox {...getCheckboxProps()} />
+              <CustomLabel
+                {...getLabelProps({
+                  icon,
+                  expandable: expandable && status.expanded,
+                })}
+              />
+            </CustomTreeItemContent>
+            {children && <TransitionComponent {...getGroupTransitionProps()} />}
+          </StyledTreeItemRoot>
+        </TreeItem2Provider>
+      </Link> : <TreeItem2Provider itemId={itemId}>
         <StyledTreeItemRoot {...getRootProps(other)}>
           <CustomTreeItemContent
             {...getContentProps({
@@ -307,8 +334,8 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
           </CustomTreeItemContent>
           {children && <TransitionComponent {...getGroupTransitionProps()} />}
         </StyledTreeItemRoot>
-      </TreeItem2Provider>
-    </Link>
+      </TreeItem2Provider>}
+    </>
   );
 });
 
