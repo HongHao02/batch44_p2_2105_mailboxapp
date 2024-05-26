@@ -123,7 +123,7 @@ export function EmailItem({ email }: EmailItemProps) {
   return (
     <Link to={`${routes.mailContent}/:${email.id}`}>
       <div
-        className={`w-full flex p-2 gap-1  text-[12px] cursor-pointer hover:border-gray-600 hover:border-[1px] ${
+        className={`w-full flex p-2 gap-2  text-[12px] cursor-pointer hover:border-b-[1px] hover:border-l-[1px] hover:shadow-md hover:rounded-sm  ${
           (activeMail?.id ?? 0) == email.id ? "bg-white" : ""
         }`}
         onClick={() => dispatch(addActiveEmail(email))}

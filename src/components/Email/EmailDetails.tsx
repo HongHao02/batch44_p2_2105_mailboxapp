@@ -1,15 +1,40 @@
-import { RootState } from "@/app/store";
+import { AppDispatch, RootState } from "@/app/store";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Button, Stack } from "@mui/material";
 import moment from "moment";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useParams } from "react-router-dom";
+import _ from 'lodash'
+import { useEffect } from "react";
+import { Email } from "@/types/EmailType";
+import { addActiveEmail } from "@/features/emailStore/emailStoreSlice";
 
 function EmailDetails() {
-  const { activeMail } = useSelector((state: RootState) => state.emailStore);
+  const { activeMail, emails } = useSelector((state: RootState) => state.emailStore);
+  const {mailId}= useParams();
+  const dispatch: AppDispatch= useDispatch()
+  
+
+  let mailIdFormat : number;
+  if(mailId){
+    mailIdFormat= parseInt(mailId?.slice(1, mailId.length))
+  }
+  
+  console.log('mailID ', parseInt(mailId?.slice(1, mailId.length) || ''));
+  
+
+  useEffect(()=>{
+    const result : Email[]= _.filter(emails, (email: Email)=> email.id == mailIdFormat)
+    if(result){
+      dispatch(addActiveEmail(result[0]))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, emails, mailId])
+  
   return (
     <div className="h-full">
       {activeMail ? (

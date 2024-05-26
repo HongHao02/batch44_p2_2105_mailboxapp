@@ -11,11 +11,14 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import Search from "../Search/Search";
+import Search from "../Search/CustomSearch";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { Email } from "@/types/EmailType";
 import { EmailItem } from "./EmailDasboard";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,6 +31,7 @@ const Transition = React.forwardRef(function Transition(
 
 export default function SearchMail() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate()
   const { s_emails, s_state } = useSelector(
     (state: RootState) => state.emailSearchStore
   );
@@ -42,9 +46,10 @@ export default function SearchMail() {
 
   return (
     <React.Fragment>
-      <Button variant="contained" onClick={handleClickOpen}>
+      {/* <Button variant="contained" onClick={handleClickOpen}>
         Search Mail
-      </Button>
+      </Button> */}
+      <SearchIcon onClick={handleClickOpen}></SearchIcon>
       <Dialog
         fullScreen
         open={open}
@@ -85,12 +90,17 @@ export default function SearchMail() {
           </ListItemButton> */}
           {s_emails.length > 0 ? (
             s_emails.map((email: Email, index) => (
-              <div key={index}>
+
+              <div key={index} onClick={() => {
+                navigate(`/mail-box/content/:${email.id}`)
+                setOpen(false)
+              }}>
                 <ListItemButton>
                   <EmailItem email={email}></EmailItem>
                 </ListItemButton>
                 <Divider />
               </div>
+
             ))
           ) : (
             <ListItemButton sx={{ display: "flex", justifyContent: "center" }}>

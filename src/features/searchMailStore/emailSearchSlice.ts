@@ -19,7 +19,7 @@ const emailSearchSlice = createSlice({
   name: "serchEmails",
   initialState,
   reducers: {
-    addContent: (state, action: PayloadAction<string>) => {
+    addSearchContent: (state, action: PayloadAction<string>) => {
       state.s_content = action.payload;
     },
     addSearchResults: (state, action: PayloadAction<Email[]>) => {
@@ -27,13 +27,13 @@ const emailSearchSlice = createSlice({
     },
     setSearchResultState: (
       state,
-      action: PayloadAction<string>
+      action: PayloadAction<string | null>
     ) => {
       state.s_state = action.payload;
     },
   },
 });
 
-export const { addContent, addSearchResults, setSearchResultState } = emailSearchSlice.actions;
+export const { addSearchContent, addSearchResults, setSearchResultState } = emailSearchSlice.actions;
 
 export default emailSearchSlice.reducer;

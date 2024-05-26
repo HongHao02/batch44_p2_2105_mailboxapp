@@ -7,6 +7,10 @@ import EmailDetails from "@/components/Email/EmailDetails";
 
 import LoginForm from "@/components/Login/LoginForm";
 import routes from "@/config/routes";
+import SearchContainer from "@/components/Search/SearchContainer";
+
+import SearchResults from "@/components/Search/SearchResults";
+import NewEmail from "@/components/Email/NewEmail";
 
 const router = createBrowserRouter([
   {
@@ -35,9 +39,31 @@ const router = createBrowserRouter([
                 path: ":mailId",
                 element: <EmailDetails />,
               },
+              {
+                path: "newEmail",
+                element: <NewEmail></NewEmail>,
+              },
             ],
           },
         ],
+      },
+      {
+        path: "search",
+        element: <SearchContainer></SearchContainer>,
+        children: [
+          {
+            path: ":searchValue",
+            element: <SearchResults></SearchResults>,
+            // children:[
+              
+            // ]
+          },
+          {
+            path: ":searchValue/:mailId",
+            element: <EmailDetails></EmailDetails>
+          }
+        ],
+
       },
     ],
   },
