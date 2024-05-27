@@ -5,16 +5,17 @@ const routes = {
     mailContent: '/mail-box/content',
     mailSearch: '/mail-box/search',
     newEmail: '/mail-box/content/newEmail',
-    manage: '/manage',
-    memory: '/memory',
-    post: '/post',
+    sendEmail: '/mail-box/send',
+    sortByTime: '/mail-box/sort/byTime',
+    sortByTime_shorthan: '/sort/byTime',
+    trashMail: '/mail-box/trash',
     createpost: '/createpost',
     profile: '/:username',
     reservation: '/reservation',
     search: '/search',
     video: '/video',
     comment: '/comment/:idBaiViet',
-    myInfo: '/my-info/:username'
+    myInfo: '/my-info/:username',
 };
 
 export default routes;

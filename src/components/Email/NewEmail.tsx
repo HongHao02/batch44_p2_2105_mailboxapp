@@ -94,14 +94,14 @@ function NewEmail() {
                         name='content'
                         id="outlined-multiline-flexible"
                         multiline
-                        minRows={14}
+                        minRows={11}
                         sx={{
                             width: '100%',
                             border: '0px'
                         }}
                     />
                 </div>
-                <div className='flex mt-2'>
+                <div className='flex'>
                     <Button type='submit' variant="contained" endIcon={<SendIcon />}>
                         Send
                     </Button>

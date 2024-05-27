@@ -61,7 +61,7 @@ const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
         to: routes.mailBox,
         fileType: "folder",
       },
-      { id: "1.2", label: "Sent Items", fileType: "folder", to: "/unknow" },
+      { id: "1.2", label: "Sent Items", fileType: "folder", to: routes.sendEmail },
       { id: "1.3", label: "Drafts", fileType: "image", to: "/unknow" },
     ],
   },
@@ -82,7 +82,7 @@ const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
     ],
   },
   { id: "3", label: "History", fileType: "folder", to: "unknow" },
-  { id: "4", label: "Trash", fileType: "trash", to: "unknow" },
+  { id: "4", label: "Trash", fileType: "trash", to: routes.trashMail },
 ];
 
 function DotIcon() {
