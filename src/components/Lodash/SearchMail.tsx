@@ -96,7 +96,7 @@ export default function SearchMail() {
                 setOpen(false)
               }}>
                 <ListItemButton>
-                  <EmailItem email={email}></EmailItem>
+                  <EmailItem type="inbox" email={email}></EmailItem>
                 </ListItemButton>
                 <Divider />
               </div>
